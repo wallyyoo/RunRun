@@ -34,14 +34,12 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-
     filterMode: 0
-
     aniso: 1
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -65,9 +63,9 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 1
+  applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -116,48 +114,6 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 208
-        y: 468
-        width: 15
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 31b23babe279d7f40a8350c680347090
-      internalID: 762486761
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: other_and_decorative_1
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 449
-        width: 12
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7facfcb6e5df2ef478ee4fccd0e38bdb
-      internalID: 1899154515
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: other_and_decorative_2
-      rect:
-        serializedVersion: 2
-        x: 208
         y: 432
         width: 15
         height: 12
@@ -168,29 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0f1e491a1aa02f74197a62126d4fc3ef
-      internalID: -1232254710
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: other_and_decorative_3
-      rect:
-        serializedVersion: 2
-        x: 228
-        y: 449
-        width: 12
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a7c62d64985237f42948b2704d6bfa1b
-      internalID: 1886857437
+      spriteID: f060550870d3083408f10f7cfe21343f
+      internalID: -2010221941
       vertices: []
       indices: 
       edges: []
@@ -198,20 +133,15 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: b1a05f88fb0497244a052fef11443164
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-
     nameFileIdTable:
-      other_and_decorative_0: 762486761
-      other_and_decorative_1: 1899154515
-      other_and_decorative_2: -1232254710
-      other_and_decorative_3: 1886857437
-
+      other_and_decorative_0: -2010221941
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

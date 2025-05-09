@@ -8,16 +8,25 @@ public class MagicProjectile : MonoBehaviour
     public LayerMask hitLayers;
 
     private Rigidbody2D _rigidbody;
+    private float direction = 1f;
 
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
+        _rigidbody = GetComponent<Rigidbody2D>();/// 시작 시 Rigidbody2D 컴포넌트를 가져옴
     }
 
-    private void Start()
+    // 발사 방향 설정 (외부에서 호출)
+    public void SetDirection(float dir)
     {
-        _rigidbody.velocity = transform.right * speed;
+        direction = dir;
+        _rigidbody.velocity = new Vector2(direction * speed, 0f);
+
+        // 좌우 반전이 필요하다면 스프라이트도 반전 가능
+        Vector3 scale = transform.localScale;
+        scale.x = Mathf.Abs(scale.x) * direction;
+        transform.localScale = scale;
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

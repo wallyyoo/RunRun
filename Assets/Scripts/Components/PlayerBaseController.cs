@@ -10,9 +10,9 @@ public abstract class PlayerBaseController : MonoBehaviour
     //기본이동속도
     [SerializeField] protected float moveSpeed = 5f;
 
-    protected Rigidbody2D _rigidbody;
-    protected Animator animator;
-    protected Vector2 moveInput;
+    protected Rigidbody2D _rigidbody;// 캐릭터 이동 및 물리 처리를 위한 Rigidbody2D
+    protected Animator animator;// 애니메이터 컴포넌트 (애니메이션 제어)
+    protected Vector2 moveInput;// 입력으로 설정된 이동 벡터 (x축만 사용)
 
     protected virtual void Awake()
     {
@@ -20,14 +20,14 @@ public abstract class PlayerBaseController : MonoBehaviour
         animator= GetComponent<Animator>();
     }
 
-    protected virtual void Update()
+    protected virtual void Update()/// 매 프레임 호출: 이동 처리 및 애니메이션 상태 업데이트
     {
         Move();
         HandleAnimation();
     }
     public virtual void Move()
     {
-        if(_rigidbody!=null)
+        if(_rigidbody!=null)// X축 속도 = 입력값 * 이동속도, Y축 속도는 기존 속도 유지
         {
             _rigidbody.velocity = new Vector2(moveInput.x*moveSpeed,_rigidbody.velocity.y);
         }
@@ -59,8 +59,8 @@ public abstract class PlayerBaseController : MonoBehaviour
         if(animator!=null)
         {
 
-            bool isMoving = moveInput.x != 0f;
-            animator.SetBool("IsMoving",isMoving);
+            bool isMoving = moveInput.x != 0f;// 입력값이 0이 아니면 이동 중
+            animator.SetBool("IsMoving",isMoving);// 애니메이터에 전달
         }
     }
  

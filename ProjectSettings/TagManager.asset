@@ -4,20 +4,24 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Ground
+  - Enemy
+  - Obstacle
+  - Button
+  - Projectile
+
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Map
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Wizard
+  - Knight
+  - Enemy
+  - Obstacle_Knight
+  - Obstacle_Wizard
+  - Projectile_Wizard
   - 
   - 
   - 

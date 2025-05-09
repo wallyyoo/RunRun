@@ -1,51 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class Play : BaseController
 {
-    public float moveSpeed = 5f;
-    public float jumpForce = 5f;
-    private Rigidbody2D _rigidBody2D;
-    private bool isGrounded = false;
+    private Camera camera;
 
-    void Start()
+    protected override void Start()
     {
-        _rigidBody2D = GetComponent<Rigidbody2D>();
+        base.Start();
+        camera = Camera.main;
+
     }
 
-
-    void Update()
+    protected override void HandleActiom()
     {
-        if (Input.anyKeyDown)
-            Debug.Log("아무 키나 눌림");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertial = Input.GetAxisRaw("Vertical");
+        movementDirection = new Vector2(horizontal, vertial).normalized;
 
-        Debug.Log("현재 속도: " + _rigidBody2D.velocity);
-        Vector2 newVelocity = _rigidBody2D.velocity;
+        Vector2 mousePosition = Input.mousePosition;
+        Vector2 worldPos = camera.ScreenToWorldPoint(mousePosition);
+        movementDirection = new Vector2(horizontal, 0f).normalized;
+        IookDirection = (worldPos - (Vector2)transform.position);
 
-
-        if (Input.GetKey(KeyCode.A)) newVelocity.x = -moveSpeed;
-        else if (Input.GetKey(KeyCode.D)) newVelocity.x = moveSpeed;
-        else newVelocity.x = 0f;
-
-        Debug.Log("입력됨 / velocity: " + newVelocity + moveSpeed);
-
-
-        if (Input.GetKeyDown(KeyCode.W) && isGrounded)
+        if (IookDirection.magnitude < .9f)
         {
-            newVelocity.y = jumpForce;
-            isGrounded = false;
+            IookDirection = Vector2.zero;
         }
-
-
-        _rigidBody2D.velocity = newVelocity;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-            isGrounded = true;
+        else
+        {
+            IookDirection = IookDirection.normalized;
+        }
     }
 }
+

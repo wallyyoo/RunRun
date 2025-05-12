@@ -119,16 +119,29 @@ public abstract class PlayerBaseController : MonoBehaviour
         if (animator == null)
             return;
 
-        // 수평 이동 여부 → Run 애니메이션
+        // 이동 중인지
         bool IsRun = moveInput.x != 0f;
         animator.SetBool("IsRun", IsRun);
 
-        // 착지 여부 → Jump 애니메이션용 bool
+        // 공중에 있는지 여부 (점프)
         animator.SetBool("IsJump", !isGrounded);
 
-        // 수직 속도 → Fall 조건에 쓰임
-        animator.SetFloat("VerticalSpeed", _rigidbody.velocity.y);
+        // 수직 속도
+        float vSpeed = _rigidbody.velocity.y;
+        animator.SetFloat("VerticalSpeed", vSpeed);
+
+        // 낙하 상태: 공중에 있고, 아래로 떨어지고 있는 경우
+        bool isFalling = !isGrounded && vSpeed < -0.1f;
+        animator.SetBool("IsFall", isFalling);
+
+        // 바닥에 완전히 착지한 경우 Idle 처리 (조건 정확히 체크)
+        bool isIdle = isGrounded && !IsRun && !animator.GetBool("IsAttack") && !isFalling;
+        animator.SetBool("IsIdle", isIdle);
+        // 디버그로그 확인
+        Debug.Log($"Check → isGrounded: {isGrounded}, isFalling: {isFalling}, IsRun: {IsRun}");
+        Debug.Log($"Animator Param → IsIdle: {animator.GetBool("IsIdle")}, IsFall: {animator.GetBool("IsFall")}");
     }
+
 
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -137,6 +150,7 @@ public abstract class PlayerBaseController : MonoBehaviour
         {
             isGrounded = true;
             animator.SetBool("IsJump", false);
+            Debug.Log("착지함!");
 
         }
 

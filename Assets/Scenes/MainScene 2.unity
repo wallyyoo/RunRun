@@ -392,13 +392,13 @@ GameObject:
   - component: {fileID: 610070579}
   - component: {fileID: 610070578}
   - component: {fileID: 610070577}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Trap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &610070576
 Transform:
   m_ObjectHideFlags: 0
@@ -997,7 +997,7 @@ Transform:
   m_GameObject: {fileID: 970533740}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.09, y: 0.16, z: 0}
+  m_LocalPosition: {x: -10.8, y: 0.79, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1014,9 +1014,9 @@ GameObject:
   - component: {fileID: 1062395787}
   - component: {fileID: 1062395789}
   - component: {fileID: 1062395788}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1358,7 +1358,7 @@ Transform:
   m_GameObject: {fileID: 1145394160}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.27, y: 0.07, z: 0}
+  m_LocalPosition: {x: -7.71, y: 0.78, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1375,9 +1375,9 @@ GameObject:
   - component: {fileID: 1233757231}
   - component: {fileID: 1233757232}
   - component: {fileID: 1233757234}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Grid
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1463,9 +1463,10 @@ GameObject:
   - component: {fileID: 1853741467}
   - component: {fileID: 1853741469}
   - component: {fileID: 1853741468}
-  m_Layer: 0
+  - component: {fileID: 1853741470}
+  m_Layer: 3
   m_Name: ForeDesign
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3392,6 +3393,42 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!19719996 &1853741470
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853741466}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
 --- !u!1 &1934466583
 GameObject:
   m_ObjectHideFlags: 0
@@ -3403,13 +3440,13 @@ GameObject:
   - component: {fileID: 1934466584}
   - component: {fileID: 1934466586}
   - component: {fileID: 1934466585}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: road
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1934466584
 Transform:
   m_ObjectHideFlags: 0
@@ -3570,9 +3607,9 @@ GameObject:
   - component: {fileID: 1960940974}
   - component: {fileID: 1960940973}
   - component: {fileID: 1960940975}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BackDesign
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -44,10 +44,10 @@ public class MagicProjectile : MonoBehaviour
         // 무시할 레이어가 아니면
         if (((1 << collision.gameObject.layer) & hitLayers) == 0) return;
 
-        // 데미지 줄 수 있는 대상이면 처리
-        if (collision.TryGetComponent<IDamageable>(out var dmg))
-        {
-            dmg.TakeDamage(1);
+        // 데미지 줄 수 있는 대상이면 처리 (dmg -> target으로 변수명 변경)
+        if (collision.TryGetComponent<IDamageable>(out var target))
+        {                                               
+            target.TakeDamage(1);
         }
 
         // 투사체 파괴

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public class KnightController : PlayerBaseController
@@ -9,6 +10,7 @@ public class KnightController : PlayerBaseController
     [SerializeField] private float attackDuration = 0.1f;
 
     private KnightAnimationHandler knightAnimationHandler;
+    private KnightAttack knightAttack;
 
     private int jumpCount = 0;
     [SerializeField] private int maxJumps = 2;
@@ -16,7 +18,9 @@ public class KnightController : PlayerBaseController
     protected override void Awake()
     {
         base.Awake();
+        knightAttack = GetComponent<KnightAttack>();
         knightAnimationHandler = GetComponentInChildren<KnightAnimationHandler>();
+        
 
         if (attackHitbox != null)
             attackHitbox.enabled = false;
@@ -36,6 +40,7 @@ public class KnightController : PlayerBaseController
             if (isGrounded)
             {
                 Attack();
+                knightAttack.Attack();
                 StartCoroutine(EnableHitbox());
             }
         }
@@ -105,6 +110,18 @@ public class KnightController : PlayerBaseController
             jumpCount = 0;
             animator.SetBool("IsJump", false);
         }
+    }
+
+    // 박스 밀기 관련한 로직
+
+  public float GetCurrentSpeed()
+    {
+        return Mathf.Abs(_rigidbody.velocity.x);
+    }
+
+    public float GetMoveDirection()
+    {
+        return Mathf.Sign(_rigidbody.velocity.x); // or moveInput if preferred
     }
 }
 

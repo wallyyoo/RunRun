@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 223133475}
   - component: {fileID: 223133474}
   - component: {fileID: 223133472}
-  - component: {fileID: 223133476}
   - component: {fileID: 223133477}
   - component: {fileID: 223133478}
   - component: {fileID: 223133480}
@@ -240,29 +239,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &223133476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 223133471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14ef1a4042a2ed347a676d3f23d442eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  jumpForce: 10
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  attackHitbox: {fileID: 0}
-  attackableLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  attackDuration: 0.1
-  maxJumps: 2
 --- !u!61 &223133477
 BoxCollider2D:
   m_ObjectHideFlags: 0

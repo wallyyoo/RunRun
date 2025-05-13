@@ -1850,6 +1850,7 @@ GameObject:
   - component: {fileID: 1039501219}
   - component: {fileID: 1039501218}
   - component: {fileID: 1039501217}
+  - component: {fileID: 1039501225}
   m_Layer: 13
   m_Name: Knight
   m_TagString: Player
@@ -2051,6 +2052,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1039501225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039501216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b226d10cb2e948a46ac0a4986404343e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPoint: {fileID: 1088064053}
+  attackRange: 1.5
+  breakable_Knight:
+    serializedVersion: 2
+    m_Bits: 0
+  knightTransform: {fileID: 0}
 --- !u!1 &1062395786
 GameObject:
   m_ObjectHideFlags: 0

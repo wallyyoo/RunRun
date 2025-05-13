@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public class KnightController : PlayerBaseController
 {
+    [Header("Attack Settings")]
     [SerializeField] private Collider2D attackHitbox;
     [SerializeField] private LayerMask attackableLayers;
     [SerializeField] private float attackDuration = 0.1f;
@@ -15,9 +15,16 @@ public class KnightController : PlayerBaseController
     protected override void Awake()
     {
         base.Awake();
+
+        // KnightAttack 스크립트 자동 할당
         knightAttack = GetComponent<KnightAttack>();
-        knightAnimationHandler = GetComponentInChildren<KnightAnimationHandler>();
-        
+        if (knightAttack == null)
+            Debug.LogError("KnightAttack 스크립트가 Knight 오브젝트에 없습니다!");
+
+        // 애니메이션 핸들러 자동 할당
+        knightAnimationHandler = GetComponent<KnightAnimationHandler>();
+        if (knightAnimationHandler == null)
+            Debug.LogError(" KnightAnimationHandler 스크립트가 Knight 오브젝트에 없습니다!");
 
         if (attackHitbox != null)
             attackHitbox.enabled = false;
@@ -27,7 +34,7 @@ public class KnightController : PlayerBaseController
     {
         moveInput = InputManager.Instance.GetKnightMovement();
 
-        if (InputManager.Instance.GetKnightJump() && isGrounded) // 점프는 땅에 있을 때만
+        if (InputManager.Instance.GetKnightJump() && isGrounded)
         {
             Jump();
         }
@@ -37,7 +44,10 @@ public class KnightController : PlayerBaseController
             if (isGrounded)
             {
                 Attack();
-                knightAttack.Attack();
+
+                if (knightAttack != null)
+                    knightAttack.Attack();
+
                 StartCoroutine(EnableHitbox());
             }
         }
@@ -106,15 +116,13 @@ public class KnightController : PlayerBaseController
         }
     }
 
-    // 박스 밀기 관련한 로직
-
-  public float GetCurrentSpeed()
+    public float GetCurrentSpeed()
     {
         return Mathf.Abs(_rigidbody.velocity.x);
     }
 
     public float GetMoveDirection()
     {
-        return Mathf.Sign(_rigidbody.velocity.x); // or moveInput if preferred
+        return Mathf.Sign(_rigidbody.velocity.x);
     }
 }

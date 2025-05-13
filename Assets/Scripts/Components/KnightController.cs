@@ -18,13 +18,13 @@ public class KnightController : PlayerBaseController
         knightAttack = GetComponent<KnightAttack>();
         knightAnimationHandler = GetComponentInChildren<KnightAnimationHandler>();
         
-
         if (attackHitbox != null)
             attackHitbox.enabled = false;
     }
 
     protected override void Update()
     {
+        if(isDead) return;
         moveInput = InputManager.Instance.GetKnightMovement();
 
         if (InputManager.Instance.GetKnightJump() && isGrounded) // 점프는 땅에 있을 때만
@@ -59,16 +59,11 @@ public class KnightController : PlayerBaseController
         knightAnimationHandler?.Jump();
     }
 
-    public override void Die()
-    {
-        knightAnimationHandler?.Die();
-        Destroy(gameObject);
-    }
 
     private IEnumerator EnableHitbox()
     {
         if (attackHitbox != null)
-        {
+        { 
             attackHitbox.enabled = true;
             yield return new WaitForSeconds(attackDuration);
             attackHitbox.enabled = false;
@@ -116,5 +111,22 @@ public class KnightController : PlayerBaseController
     public float GetMoveDirection()
     {
         return Mathf.Sign(_rigidbody.velocity.x); // or moveInput if preferred
+    }
+
+    public void FallintoWater()
+    {
+        if(isDead) return;
+
+        _rigidbody.bodyType = RigidbodyType2D.Dynamic;
+        _rigidbody.velocity = Vector2.zero;
+        _rigidbody.gravityScale = 5f;
+
+        StartCoroutine(DelayedDie());
+    }
+
+    private IEnumerator DelayedDie()
+    {
+        yield return new WaitForSeconds(1.5f);
+        Die();
     }
 }

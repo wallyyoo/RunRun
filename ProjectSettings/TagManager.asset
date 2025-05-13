@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Ground
   - MagicProjectile
+  - HazardForWizard_tag
+  - HazardForKnight_tag
+  - Wizard
+  - Knight
   layers:
   - Default
   - TransparentFX
@@ -18,10 +22,10 @@ TagManager:
   - Breakable_Wizard
   - Push_Knight
   - ProjectileHit
-  - 
-  - 
-  - 
-  - 
+  - Gem
+  - Knight
+  - Wizard
+  - Waterzone
   - 
   - 
   - 

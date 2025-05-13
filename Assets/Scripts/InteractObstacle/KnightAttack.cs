@@ -13,9 +13,16 @@ public class KnightAttack : MonoBehaviour
 
     public void Attack()
     {
-        Collider2D[] hits= Physics2D.OverlapCircleAll(attackPoint.position,attackRange,breakable_Knight);
+        StartCoroutine(DelayedAttack(0.3f)); // 0.3초 뒤에 공격 실행
+    }
 
-        foreach(var hit in hits)
+    private IEnumerator DelayedAttack(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, breakable_Knight);
+
+        foreach (var hit in hits)
         {
             Debug.Log("Hit object: " + hit.name);
             if (hit.TryGetComponent<IDamageable>(out var target))

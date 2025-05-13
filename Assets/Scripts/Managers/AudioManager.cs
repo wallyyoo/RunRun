@@ -6,10 +6,15 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
 
-    AudioSource audioSource;
-    public AudioClip clip;
+    [Header("Audio Sources")]
+    public AudioSource bgmAudioSource;
+    public AudioSource sfxAudioSource;
 
-    public AudioSource AudioSource => audioSource;
+    [Header("BGM Clip")]
+    public AudioClip bgmClip;
+
+    public AudioSource BGMSource => bgmAudioSource;
+    public AudioSource SFXSource => sfxAudioSource;
 
     private void Awake()
     {
@@ -21,23 +26,44 @@ public class AudioManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
 
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
+        if (bgmAudioSource == null)
         {
-            audioSource = gameObject.AddComponent<AudioSource>();
+            bgmAudioSource = gameObject.AddComponent<AudioSource>();
         }
+        bgmAudioSource.loop = true;
+        bgmAudioSource.playOnAwake = false;
 
-        audioSource.loop = true;
+        if (sfxAudioSource == null)
+        {
+            sfxAudioSource = gameObject.AddComponent<AudioSource>();
+        }
+        sfxAudioSource.loop = false;
+        sfxAudioSource.playOnAwake = false;
     }
 
     void Start()
     {
-        if (clip != null)
+        if (bgmClip != null)
         {
-            audioSource.clip = clip;
-            audioSource.Play();
+            bgmAudioSource.clip = bgmClip;
+            bgmAudioSource.Play();
+        }
+
+        float bgmVol = PlayerPrefs.GetFloat("BGMVolume", 1f);
+        float sfxVol = PlayerPrefs.GetFloat("SFXVolume", 1f);
+
+        bgmAudioSource.volume = bgmVol;
+        sfxAudioSource.volume = sfxVol;
+    }
+
+    public void PlaySFX(AudioClip clip)
+    {
+        if (clip != null && sfxAudioSource != null)
+        {
+            sfxAudioSource.PlayOneShot(clip);
         }
     }
 }

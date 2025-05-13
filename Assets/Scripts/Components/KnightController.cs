@@ -12,9 +12,6 @@ public class KnightController : PlayerBaseController
     private KnightAnimationHandler knightAnimationHandler;
     private KnightAttack knightAttack;
 
-    private int jumpCount = 0;
-    [SerializeField] private int maxJumps = 2;
-
     protected override void Awake()
     {
         base.Awake();
@@ -30,7 +27,7 @@ public class KnightController : PlayerBaseController
     {
         moveInput = InputManager.Instance.GetKnightMovement();
 
-        if (InputManager.Instance.GetKnightJump() && jumpCount < maxJumps)
+        if (InputManager.Instance.GetKnightJump() && isGrounded) // 점프는 땅에 있을 때만
         {
             Jump();
         }
@@ -57,10 +54,9 @@ public class KnightController : PlayerBaseController
 
     public override void Jump()
     {
-        Debug.Log("점프 호출됨 / count: " + jumpCount);
+        Debug.Log("점프 호출됨");
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpForce);
         knightAnimationHandler?.Jump();
-        jumpCount++;
     }
 
     public override void Die()
@@ -105,9 +101,7 @@ public class KnightController : PlayerBaseController
     {
         if (((1 << collision.gameObject.layer) & groundLayer.value) != 0)
         {
-
             isGrounded = true;
-            jumpCount = 0;
             animator.SetBool("IsJump", false);
         }
     }
@@ -124,5 +118,3 @@ public class KnightController : PlayerBaseController
         return Mathf.Sign(_rigidbody.velocity.x); // or moveInput if preferred
     }
 }
-
-

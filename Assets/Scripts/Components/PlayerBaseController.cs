@@ -137,9 +137,6 @@ public abstract class PlayerBaseController : MonoBehaviour
         // 바닥에 완전히 착지한 경우 Idle 처리 (조건 정확히 체크)
         bool isIdle = isGrounded && !IsRun && !animator.GetBool("IsAttack") && !isFalling;
         animator.SetBool("IsIdle", isIdle);
-        // 디버그로그 확인
-        Debug.Log($"Check → isGrounded: {isGrounded}, isFalling: {isFalling}, IsRun: {IsRun}");
-        Debug.Log($"Animator Param → IsIdle: {animator.GetBool("IsIdle")}, IsFall: {animator.GetBool("IsFall")}");
     }
 
 
@@ -150,8 +147,6 @@ public abstract class PlayerBaseController : MonoBehaviour
         {
             isGrounded = true;
             animator.SetBool("IsJump", false);
-            Debug.Log("착지함!");
-
         }
 
     }

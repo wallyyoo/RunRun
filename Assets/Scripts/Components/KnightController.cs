@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public class KnightController : PlayerBaseController
@@ -9,14 +10,14 @@ public class KnightController : PlayerBaseController
     [SerializeField] private float attackDuration = 0.1f;
 
     private KnightAnimationHandler knightAnimationHandler;
-
-    private int jumpCount = 0;
-    [SerializeField] private int maxJumps = 2;
+    private KnightAttack knightAttack;
 
     protected override void Awake()
     {
         base.Awake();
+        knightAttack = GetComponent<KnightAttack>();
         knightAnimationHandler = GetComponentInChildren<KnightAnimationHandler>();
+        
 
         if (attackHitbox != null)
             attackHitbox.enabled = false;
@@ -26,7 +27,7 @@ public class KnightController : PlayerBaseController
     {
         moveInput = InputManager.Instance.GetKnightMovement();
 
-        if (InputManager.Instance.GetKnightJump() && jumpCount < maxJumps)
+        if (InputManager.Instance.GetKnightJump() && isGrounded) // 점프는 땅에 있을 때만
         {
             Jump();
         }
@@ -36,6 +37,7 @@ public class KnightController : PlayerBaseController
             if (isGrounded)
             {
                 Attack();
+                knightAttack.Attack();
                 StartCoroutine(EnableHitbox());
             }
         }
@@ -52,10 +54,9 @@ public class KnightController : PlayerBaseController
 
     public override void Jump()
     {
-        Debug.Log("점프 호출됨 / count: " + jumpCount);
+        Debug.Log("점프 호출됨");
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpForce);
         knightAnimationHandler?.Jump();
-        jumpCount++;
     }
 
     public override void Die()
@@ -100,12 +101,20 @@ public class KnightController : PlayerBaseController
     {
         if (((1 << collision.gameObject.layer) & groundLayer.value) != 0)
         {
-
             isGrounded = true;
-            jumpCount = 0;
             animator.SetBool("IsJump", false);
         }
     }
+
+    // 박스 밀기 관련한 로직
+
+  public float GetCurrentSpeed()
+    {
+        return Mathf.Abs(_rigidbody.velocity.x);
+    }
+
+    public float GetMoveDirection()
+    {
+        return Mathf.Sign(_rigidbody.velocity.x); // or moveInput if preferred
+    }
 }
-
-

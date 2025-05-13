@@ -9,6 +9,8 @@ public class AudioManager : MonoBehaviour
     AudioSource audioSource;
     public AudioClip clip;
 
+    public AudioSource AudioSource => audioSource;
+
     private void Awake()
     {
         if (instance == null)

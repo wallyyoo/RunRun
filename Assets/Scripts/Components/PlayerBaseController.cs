@@ -5,7 +5,6 @@ using UnityEngine;
 public abstract class PlayerBaseController : MonoBehaviour
 {
 
-
     [Header("Movement Settings")]
 
     //기본이동속도
@@ -20,16 +19,24 @@ public abstract class PlayerBaseController : MonoBehaviour
     protected bool isGrounded;
 
     protected WizardAnimationHandler wizardAnimationHandler;
+
+    [Header("Audio Settings")]
+    [SerializeField] protected AudioClip attackSFX;
+    protected AudioSource audioSource;
+
     protected virtual void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         wizardAnimationHandler = GetComponentInChildren<WizardAnimationHandler>();
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     protected virtual void Update()/// 매 프레임 호출: 이동 처리 및 애니메이션 상태 업데이트
     {
+        if (isDead) return;
+
         if (animator.GetBool("IsAttack"))
         {
             _rigidbody.velocity = Vector2.zero;
@@ -42,9 +49,12 @@ public abstract class PlayerBaseController : MonoBehaviour
     }
     public virtual void Move()
     {
+       
 
         if (_rigidbody != null)// X축 속도 = 입력값 * 이동속도, Y축 속도는 기존 속도 유지
         {
+            if(isDead) return;
+
             moveSpeed = 5;
             _rigidbody.velocity = new Vector2(moveInput.x * moveSpeed, _rigidbody.velocity.y);
             if (moveInput.x > 0)
@@ -59,9 +69,7 @@ public abstract class PlayerBaseController : MonoBehaviour
 
         if (wizardAnimationHandler != null)
             wizardAnimationHandler.Move(moveInput);
-
     }
-
 
     public virtual void Jump()
     {
@@ -92,32 +100,50 @@ public abstract class PlayerBaseController : MonoBehaviour
                 animator.SetBool("IsIdle", false);
         }
 
-
     }
     public virtual void Attack()
     {
         if (animator != null)
         {
+            if (animator.GetBool("IsAttack"))
+            {
+                return;
+            }
+
             if (wizardAnimationHandler != null)
                 wizardAnimationHandler.Attack();
             else if (animator != null)
                 animator.SetTrigger("IsAttack");
         }
+
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.PlaySFX(attackSFX);
+        }
     }
 
-
+    protected bool isDead = false;
     public virtual void Die()
     {
+        if (isDead) return;
+
+        isDead=true;    
+
         if (animator != null)
         {
-            animator.SetBool("IsDie", false);
+            animator.SetTrigger("IsDie");
         }
+
+        _rigidbody.velocity = Vector2.zero;
+        _rigidbody.bodyType = RigidbodyType2D.Static;
     }
 
     protected virtual void HandleAnimation()
     {
         if (animator == null)
             return;
+
+        if(isDead) return;
 
         // 이동 중인지
         bool IsRun = moveInput.x != 0f;
@@ -140,9 +166,9 @@ public abstract class PlayerBaseController : MonoBehaviour
     }
 
 
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log($"충돌한 레이어: {LayerMask.LayerToName(collision.gameObject.layer)}");
         if (((1 << collision.gameObject.layer) & groundLayer.value) != 0)
         {
             isGrounded = true;
@@ -167,4 +193,9 @@ public abstract class PlayerBaseController : MonoBehaviour
     {
         moveInput = input;
     }
+    public void SetGroundedManually() //물 오브젝트를 마법사만 움직이게 강제로 땅처리
+    {
+        isGrounded = true;
+    }
+
 }

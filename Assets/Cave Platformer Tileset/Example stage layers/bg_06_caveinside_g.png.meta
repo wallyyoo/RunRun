@@ -422,16 +422,16 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bg_06_caveinside_g_13
+      name: 1
       rect:
         serializedVersion: 2
-        x: 652
+        x: 651
         y: 48
-        width: 24
-        height: 42
+        width: 27
+        height: 65
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 24, w: 0}
+      border: {x: 2, y: 0, z: 2, w: 1}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -453,12 +453,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      1: -651595693
       bg_06_caveinside_g_0: -824548066
       bg_06_caveinside_g_1: 323607770
       bg_06_caveinside_g_10: 753636724
       bg_06_caveinside_g_11: -97298273
       bg_06_caveinside_g_12: -1423560468
-      bg_06_caveinside_g_13: -651595693
+      bg_06_caveinside_g_13: -394772117
       bg_06_caveinside_g_2: 1200429305
       bg_06_caveinside_g_3: -363178102
       bg_06_caveinside_g_4: -285874741

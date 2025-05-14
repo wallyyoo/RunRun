@@ -70,6 +70,7 @@ public abstract class PlayerBaseController : MonoBehaviour
         if (isGrounded)
         {
             Debug.Log("Jump");
+            jumpForce = 8;
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpForce);
 
             if (wizardAnimationHandler != null)

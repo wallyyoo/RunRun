@@ -17,7 +17,7 @@ public class SettingUIController : MonoBehaviour
 
     public void GoToMainTitle()
     {
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("StartScene");
     }
 
     void Update()

@@ -6,6 +6,7 @@ public class BreakByWizard : MonoBehaviour, IDamageable
 {
 public void TakeDamage(int damage)
     {
+        Debug.Log("bbw »£√‚");
         Destroy(gameObject);
     }    
 }

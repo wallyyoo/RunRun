@@ -1397,7 +1397,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 2, z: -10}
+  m_LocalPosition: {x: 1, y: 6, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2151,7 +2151,7 @@ GameObject:
   - component: {fileID: 1039501218}
   - component: {fileID: 1039501217}
   - component: {fileID: 1039501225}
-  - component: {fileID: 1039501226}
+
   m_Layer: 13
   m_Name: Knight
   m_TagString: Player
@@ -2372,6 +2372,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   knightTransform: {fileID: 0}
+
 --- !u!82 &1039501226
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2468,6 +2469,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+
 --- !u!1 &1062395786
 GameObject:
   m_ObjectHideFlags: 0

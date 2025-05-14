@@ -20,12 +20,18 @@ public abstract class PlayerBaseController : MonoBehaviour
     protected bool isGrounded;
 
     protected WizardAnimationHandler wizardAnimationHandler;
+
+    [Header("Audio Settings")]
+    [SerializeField] protected AudioClip attackSFX;
+    protected AudioSource audioSource;
+
     protected virtual void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         wizardAnimationHandler = GetComponentInChildren<WizardAnimationHandler>();
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     protected virtual void Update()/// 매 프레임 호출: 이동 처리 및 애니메이션 상태 업데이트
@@ -98,10 +104,20 @@ public abstract class PlayerBaseController : MonoBehaviour
     {
         if (animator != null)
         {
+            if (animator.GetBool("IsAttack"))
+            {
+                return;
+            }
+
             if (wizardAnimationHandler != null)
                 wizardAnimationHandler.Attack();
             else if (animator != null)
                 animator.SetTrigger("IsAttack");
+        }
+
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.PlaySFX(attackSFX);
         }
     }
 

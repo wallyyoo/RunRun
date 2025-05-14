@@ -34,7 +34,7 @@ public class WizardAnimationHandler : MonoBehaviour
     }
     public void Die()
     {
-        animator.SetBool(IsDie, true);
+        animator.SetTrigger("IsDie");
     }
     public void Running()
     {

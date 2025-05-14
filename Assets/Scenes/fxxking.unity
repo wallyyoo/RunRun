@@ -3473,6 +3473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settingsPanel: {fileID: 1672812676}
+  settingButton: {fileID: 0}
 --- !u!4 &673033307
 Transform:
   m_ObjectHideFlags: 0
@@ -3734,7 +3735,7 @@ GameObject:
   - component: {fileID: 813410330}
   - component: {fileID: 813410329}
   m_Layer: 0
-  m_Name: AudioManager (1)
+  m_Name: AudioManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

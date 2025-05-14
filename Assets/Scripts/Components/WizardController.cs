@@ -22,7 +22,7 @@ public class WizardController : PlayerBaseController
 
     protected override void Update()    /// 매 프레임 호출: 입력 감지 → 이동, 점프, 공격 처리 → 부모 Update 호출로 애니메이션 갱신
     {
-
+        if (isDead) return;
 
         moveInput = InputManager.Instance.GetWizardMovement();// 1) 이동 입력 받아 moveInput 설정
 
@@ -53,10 +53,19 @@ public class WizardController : PlayerBaseController
 
     }
 
-
+    // 투사체 발사되는 타이밍 조절
     private void FireProjectile()
     {
+        Debug.Log("FireProjectile() called");
         Attack();
+        StartCoroutine(DelayedFire(0.5f));
+    
+    }
+
+    private IEnumerator DelayedFire(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        InstanceProjectile();
     }
 
     private void InstanceProjectile()

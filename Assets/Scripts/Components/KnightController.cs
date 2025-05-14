@@ -4,19 +4,23 @@ using UnityEngine;
 
 public class KnightController : PlayerBaseController
 {
+    [Header("Attack Settings")]
     [SerializeField] private Collider2D attackHitbox;
     [SerializeField] private LayerMask attackableLayers;
     [SerializeField] private float attackDuration = 0.1f;
 
     private KnightAnimationHandler knightAnimationHandler;
-
-    private int jumpCount = 0;
-    [SerializeField] private int maxJumps = 2;
+    private KnightAttack knightAttack;
 
     protected override void Awake()
     {
         base.Awake();
+
+        // KnightAttack 스크립트 자동 할당
+        knightAttack = GetComponent<KnightAttack>();
+
         knightAnimationHandler = GetComponentInChildren<KnightAnimationHandler>();
+        
 
         if (attackHitbox != null)
             attackHitbox.enabled = false;
@@ -24,9 +28,10 @@ public class KnightController : PlayerBaseController
 
     protected override void Update()
     {
+        if(isDead) return;
         moveInput = InputManager.Instance.GetKnightMovement();
 
-        if (InputManager.Instance.GetKnightJump() && jumpCount < maxJumps)
+        if (InputManager.Instance.GetKnightJump() && isGrounded)
         {
             Jump();
         }
@@ -36,6 +41,10 @@ public class KnightController : PlayerBaseController
             if (isGrounded)
             {
                 Attack();
+
+                if (knightAttack != null)
+                    knightAttack.Attack();
+
                 StartCoroutine(EnableHitbox());
             }
         }
@@ -52,22 +61,16 @@ public class KnightController : PlayerBaseController
 
     public override void Jump()
     {
-        Debug.Log("���� ȣ��� / count: " + jumpCount);
+        Debug.Log("점프 호출됨");
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpForce);
         knightAnimationHandler?.Jump();
-        jumpCount++;
     }
 
-    public override void Die()
-    {
-        knightAnimationHandler?.Die();
-        Destroy(gameObject);
-    }
 
     private IEnumerator EnableHitbox()
     {
         if (attackHitbox != null)
-        {
+        { 
             attackHitbox.enabled = true;
             yield return new WaitForSeconds(attackDuration);
             attackHitbox.enabled = false;
@@ -100,12 +103,35 @@ public class KnightController : PlayerBaseController
     {
         if (((1 << collision.gameObject.layer) & groundLayer.value) != 0)
         {
-
             isGrounded = true;
-            jumpCount = 0;
             animator.SetBool("IsJump", false);
         }
     }
+
+    public float GetCurrentSpeed()
+    {
+        return Mathf.Abs(_rigidbody.velocity.x);
+    }
+
+    public float GetMoveDirection()
+    {
+        return Mathf.Sign(_rigidbody.velocity.x);
+    }
+
+    public void FallintoWater()
+    {
+        if(isDead) return;
+
+        _rigidbody.bodyType = RigidbodyType2D.Dynamic;
+        _rigidbody.velocity = Vector2.zero;
+        _rigidbody.gravityScale = 5f;
+
+        StartCoroutine(DelayedDie());
+    }
+
+    private IEnumerator DelayedDie()
+    {
+        yield return new WaitForSeconds(1.5f);
+        Die();
+    }
 }
-
-

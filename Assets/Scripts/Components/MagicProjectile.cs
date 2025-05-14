@@ -41,26 +41,17 @@ public class MagicProjectile : MonoBehaviour
     // 물리 충돌 감지
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("충돌감지" + collision.name);
         // 무시할 레이어가 아니면
-        if (((1 << collision.gameObject.layer) & hitLayers) == 0){
-        Debug.Log("무시된 레이어: " + LayerMask.LayerToName(collision.gameObject.layer));
-            return;
-        }
+        if (((1 << collision.gameObject.layer) & hitLayers) == 0) return;
 
-
-        if (collision.TryGetComponent<IDamageable>(out var target))
+        // 데미지 줄 수 있는 대상이면 처리
+        if (collision.TryGetComponent<IDamageable>(out var dmg))
         {
-            Debug.Log("파괴");                                         
-            target.TakeDamage(1);
+            dmg.TakeDamage(1);
         }
 
-        else
-        {
-            Debug.LogWarning("Idamageble 문제");
-        }
-            // 투사체 파괴
-            Destroy(gameObject);
+        // 투사체 파괴
+        Destroy(gameObject);
     }
 
     

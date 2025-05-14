@@ -41,7 +41,7 @@ public class KnightAnimationHandler : MonoBehaviour
 
     public void Die()
     {
-        animator.SetTrigger("IsDie");
+        animator.SetBool(IsDie, true);
     }
 
     public void Idle()

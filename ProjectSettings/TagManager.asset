@@ -5,11 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
-  - MagicProjectile
-  - HazardForWizard_tag
-  - HazardForKnight_tag
-  - Wizard
-  - Knight
   layers:
   - Default
   - TransparentFX
@@ -17,17 +12,15 @@ TagManager:
   - Ground
   - Water
   - UI
-  - HazardForWizard
-  - Breakable_Knight
-  - Breakable_Wizard
-  - Push_Knight
-  - ProjectileHit
-  - Gem
-
-  - Knight
-  - Wizard
-  - Waterzone
-
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

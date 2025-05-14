@@ -16,15 +16,11 @@ public class KnightController : PlayerBaseController
     {
         base.Awake();
 
-        // KnightAttack Ω∫≈©∏≥∆Æ ¿⁄µø «“¥Á
+        // KnightAttack Ïä§ÌÅ¨Î¶ΩÌä∏ ÏûêÎèô Ìï†Îãπ
         knightAttack = GetComponent<KnightAttack>();
-        if (knightAttack == null)
-            Debug.LogError("KnightAttack Ω∫≈©∏≥∆Æ∞° Knight ø¿∫Í¡ß∆Æø° æ¯Ω¿¥œ¥Ÿ!");
 
-        // æ÷¥œ∏ﬁ¿Ãº« «⁄µÈ∑Ø ¿⁄µø «“¥Á
-        knightAnimationHandler = GetComponent<KnightAnimationHandler>();
-        if (knightAnimationHandler == null)
-            Debug.LogError(" KnightAnimationHandler Ω∫≈©∏≥∆Æ∞° Knight ø¿∫Í¡ß∆Æø° æ¯Ω¿¥œ¥Ÿ!");
+        knightAnimationHandler = GetComponentInChildren<KnightAnimationHandler>();
+        
 
         if (attackHitbox != null)
             attackHitbox.enabled = false;
@@ -32,6 +28,7 @@ public class KnightController : PlayerBaseController
 
     protected override void Update()
     {
+        if(isDead) return;
         moveInput = InputManager.Instance.GetKnightMovement();
 
         if (InputManager.Instance.GetKnightJump() && isGrounded)
@@ -64,21 +61,16 @@ public class KnightController : PlayerBaseController
 
     public override void Jump()
     {
-        Debug.Log("¡°«¡ »£√‚µ ");
+        Debug.Log("Ï†êÌîÑ Ìò∏Ï∂úÎê®");
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpForce);
         knightAnimationHandler?.Jump();
     }
 
-    public override void Die()
-    {
-        knightAnimationHandler?.Die();
-        Destroy(gameObject);
-    }
 
     private IEnumerator EnableHitbox()
     {
         if (attackHitbox != null)
-        {
+        { 
             attackHitbox.enabled = true;
             yield return new WaitForSeconds(attackDuration);
             attackHitbox.enabled = false;
@@ -124,5 +116,22 @@ public class KnightController : PlayerBaseController
     public float GetMoveDirection()
     {
         return Mathf.Sign(_rigidbody.velocity.x);
+    }
+
+    public void FallintoWater()
+    {
+        if(isDead) return;
+
+        _rigidbody.bodyType = RigidbodyType2D.Dynamic;
+        _rigidbody.velocity = Vector2.zero;
+        _rigidbody.gravityScale = 5f;
+
+        StartCoroutine(DelayedDie());
+    }
+
+    private IEnumerator DelayedDie()
+    {
+        yield return new WaitForSeconds(1.5f);
+        Die();
     }
 }

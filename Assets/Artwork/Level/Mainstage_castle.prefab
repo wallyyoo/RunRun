@@ -3945,7 +3945,7 @@ GameObject:
   - component: {fileID: 4781084348907282468}
   - component: {fileID: 6048212890011772103}
   m_Layer: 0
-  m_Name: castle
+  m_Name: Mainstage_castle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

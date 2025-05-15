@@ -4,16 +4,13 @@ using UnityEngine;
 
 public abstract class PlayerBaseController : MonoBehaviour
 {
-
     [Header("Movement Settings")]
-
-    //기본이동속도
     [SerializeField] protected float moveSpeed = 5f;
     [SerializeField] protected float jumpForce = 10f;
 
-    protected Rigidbody2D _rigidbody;// 캐릭터 이동 및 물리 처리를 위한 Rigidbody2D
-    protected Animator animator;// 애니메이터 컴포넌트 (애니메이션 제어)
-    protected Vector2 moveInput;// 입력으로 설정된 이동 벡터 (x축만 사용)
+    protected Rigidbody2D _rigidbody;
+    protected Animator animator;
+    protected Vector2 moveInput;
     protected SpriteRenderer _spriteRenderer;
     [SerializeField] protected LayerMask groundLayer;
     protected bool isGrounded;
@@ -33,7 +30,7 @@ public abstract class PlayerBaseController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    protected virtual void Update()/// 매 프레임 호출: 이동 처리 및 애니메이션 상태 업데이트
+    protected virtual void Update()
     {
         if (isDead) return;
 
@@ -45,26 +42,23 @@ public abstract class PlayerBaseController : MonoBehaviour
         {
             Move();
         }
+
         HandleAnimation();
     }
+
     public virtual void Move()
     {
-       
-
-        if (_rigidbody != null)// X축 속도 = 입력값 * 이동속도, Y축 속도는 기존 속도 유지
+        if (_rigidbody != null)
         {
-            if(isDead) return;
+            if (isDead) return;
 
             moveSpeed = 5;
             _rigidbody.velocity = new Vector2(moveInput.x * moveSpeed, _rigidbody.velocity.y);
+
             if (moveInput.x > 0)
-            {
                 _spriteRenderer.flipX = false;
-            }
             else if (moveInput.x < 0)
-            {
                 _spriteRenderer.flipX = true;
-            }
         }
 
         if (wizardAnimationHandler != null)
@@ -76,6 +70,7 @@ public abstract class PlayerBaseController : MonoBehaviour
         if (isGrounded)
         {
             Debug.Log("Jump");
+            jumpForce = 8;
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpForce);
 
             if (wizardAnimationHandler != null)
@@ -84,10 +79,9 @@ public abstract class PlayerBaseController : MonoBehaviour
                 Debug.Log("Start Jump");
             }
             else if (animator != null)
+            {
                 animator.SetBool("IsJump", false);
-
-            //isGrounded = false;
-
+            }
         }
         else
         {
@@ -97,18 +91,17 @@ public abstract class PlayerBaseController : MonoBehaviour
                 wizardAnimationHandler.Idle();
             }
             else if (animator != null)
+            {
                 animator.SetBool("IsIdle", false);
+            }
         }
-
     }
+
     public virtual void Attack()
     {
         if (animator != null)
         {
-            if (animator.GetBool("IsAttack"))
-            {
-                return;
-            }
+            if (animator.GetBool("IsAttack")) return;
 
             if (wizardAnimationHandler != null)
                 wizardAnimationHandler.Attack();
@@ -117,50 +110,24 @@ public abstract class PlayerBaseController : MonoBehaviour
         }
 
         if (AudioManager.instance != null)
-        {
             AudioManager.instance.PlaySFX(attackSFX);
-        }
-    }
-
-    protected bool isDead = false;
-    public virtual void Die()
-    {
-        if (isDead) return;
-
-        isDead=true;    
-
-        if (animator != null)
-        {
-            animator.SetTrigger("IsDie");
-        }
-
-        _rigidbody.velocity = Vector2.zero;
-        _rigidbody.bodyType = RigidbodyType2D.Static;
     }
 
     protected virtual void HandleAnimation()
     {
-        if (animator == null)
-            return;
+        if (animator == null || isDead) return;
 
-        if(isDead) return;
-
-        // 이동 중인지
         bool IsRun = moveInput.x != 0f;
         animator.SetBool("IsRun", IsRun);
 
-        // 공중에 있는지 여부 (점프)
         animator.SetBool("IsJump", !isGrounded);
 
-        // 수직 속도
         float vSpeed = _rigidbody.velocity.y;
         animator.SetFloat("VerticalSpeed", vSpeed);
 
-        // 낙하 상태: 공중에 있고, 아래로 떨어지고 있는 경우
         bool isFalling = !isGrounded && vSpeed < -0.1f;
         animator.SetBool("IsFall", isFalling);
 
-        // 바닥에 완전히 착지한 경우 Idle 처리 (조건 정확히 체크)
         bool isIdle = isGrounded && !IsRun && !animator.GetBool("IsAttack") && !isFalling;
         animator.SetBool("IsIdle", isIdle);
     }
@@ -174,8 +141,8 @@ public abstract class PlayerBaseController : MonoBehaviour
             isGrounded = true;
             animator.SetBool("IsJump", false);
         }
-
     }
+
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (((1 << collision.gameObject.layer) & groundLayer.value) != 0)
@@ -183,19 +150,21 @@ public abstract class PlayerBaseController : MonoBehaviour
             isGrounded = false;
             Debug.Log("isGrounded false ");
         }
-
-    }
-    public bool IsGrounded() // 자식이 쓸 수 있게.
-    {
-        return isGrounded;
-    }
-    public void SetMoveInput(Vector2 input)
-    {
-        moveInput = input;
-    }
-    public void SetGroundedManually() //물 오브젝트를 마법사만 움직이게 강제로 땅처리
-    {
-        isGrounded = true;
     }
 
+    public bool IsGrounded() => isGrounded;
+    public void SetMoveInput(Vector2 input) => moveInput = input;
+    public void SetGroundedManually() => isGrounded = true;
+
+    protected bool isDead = false;
+    public virtual void Die()
+    {
+        if (isDead) return;
+
+        isDead = true;
+        animator?.SetTrigger("IsDie");
+
+        _rigidbody.velocity = Vector2.zero;
+        _rigidbody.bodyType = RigidbodyType2D.Static;
+    }
 }

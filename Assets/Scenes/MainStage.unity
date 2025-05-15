@@ -5526,7 +5526,7 @@ GameObject:
   - component: {fileID: 721279659}
   - component: {fileID: 721279658}
   - component: {fileID: 721279657}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Wizard
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -5683,7 +5683,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 6839064224549392459, guid: 8490d5f08a924764b8fbfa5021259403, type: 3}
   projectileHitLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
 --- !u!212 &721279661
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6441,7 +6441,7 @@ GameObject:
   - component: {fileID: 920426645}
   - component: {fileID: 920426644}
   - component: {fileID: 920426643}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: Knight
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -20567,7 +20567,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1309324055}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: attackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

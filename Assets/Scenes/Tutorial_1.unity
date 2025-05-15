@@ -2509,7 +2509,7 @@ GameObject:
   - component: {fileID: 1492713530}
   - component: {fileID: 1492713529}
   - component: {fileID: 1492713528}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: Knight
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -3097,7 +3097,7 @@ GameObject:
   - component: {fileID: 1763476658}
   - component: {fileID: 1763476657}
   - component: {fileID: 1763476656}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Wizard
   m_TagString: Player
   m_Icon: {fileID: 0}

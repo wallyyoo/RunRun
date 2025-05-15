@@ -165,5 +165,11 @@ public abstract class PlayerBaseController : MonoBehaviour
 
         _rigidbody.velocity = Vector2.zero;
         _rigidbody.bodyType = RigidbodyType2D.Static;
+
+        // 게임오버 호출
+        GameOverManager manager = FindObjectOfType<GameOverManager>();
+        if (manager != null)
+            manager.TriggerGameOver();
     }
+
 }
